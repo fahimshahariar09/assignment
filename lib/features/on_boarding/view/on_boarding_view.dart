@@ -3,6 +3,8 @@ import 'package:assignment/features/on_boarding/controller/on_boarding_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../map_location/view/map_location.dart' show LocationScreen;
+
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
 
@@ -127,8 +129,8 @@ class OnBoardingView extends StatelessWidget {
                           onPressed: () {
                             if (controller.currentPage.value ==
                                 onboardingData.length - 1) {
-                              //Get.offAllNamed('/WelcomeView');
-                              //Get.to(SelectRoleView());
+                              //Get.offAllNamed('/LocationScreen');
+                              Get.to(LocationScreen());
                             } else {
                               controller.nextPage();
                             }
