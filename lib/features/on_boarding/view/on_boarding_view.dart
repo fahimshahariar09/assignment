@@ -16,15 +16,14 @@ class OnBoardingView extends StatelessWidget {
       'image': 'asset/images/onboarding.png',
     },
     {
-      'title': 'Woof woof! Welcome\nto FetchFriends',
+      'title': 'Effortless & Automatic',
       'description':
-          'Where every tail wags for a reason! Ready to meet\nfurry friends and their favorite humans? Let’s fetch\nsome fun together!',
+          "No need to set alarms manually. Wakey\ncalculates the sunset time for your\nlocation and alerts you on time.",
       'image': 'asset/images/onboarding2.png',
     },
     {
-      'title': 'Ready to Create an\nNew Account',
-      'description':
-          'Snap, share and shine – Turn every moment, wag, purr\nand cuddle in to a story worth telling.',
+      'title': 'Relax & Unwind',
+      'description': "hope to take the courage to pursue your\ndreams.",
       'image': 'asset/images/onboarding3.png',
     },
   ];
@@ -69,7 +68,7 @@ class OnBoardingView extends StatelessWidget {
                               width: double.infinity,
                               onboardingData[index]['image']!,
                               fit: BoxFit
-                                  .contain, // Show full image without cropping
+                                  .cover, // Show full image without cropping
                             ),
                           ),
                           SizedBox(height: 40),
@@ -84,7 +83,8 @@ class OnBoardingView extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           // Description
-                          Text(onboardingData[index]['description']!,
+                          Text(
+                            onboardingData[index]['description']!,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
