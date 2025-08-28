@@ -1,5 +1,4 @@
 import 'package:assignment/features/on_boarding/view/on_boarding_view.dart';
-import 'package:assignment/features/set_alams/view/home_alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
