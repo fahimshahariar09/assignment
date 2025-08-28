@@ -1,9 +1,6 @@
 class AppImages {
-  static String fetchFriend = "assets/images/fetchfriend.png";
+  static String location = "asset/images/location.png";
 
-  ///////////////////////////  images    ///////////////////////////
-  static String login = "assets/images/login.png";
-  static String stripe = "assets/images/stripe.png";
 
 
 }

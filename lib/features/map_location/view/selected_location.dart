@@ -1,18 +1,18 @@
-import 'package:assignment/features/set_alams/view/set_alarm.dart';
+import 'package:assignment/features/set_alams/view/home_alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart' as lat_lng; // For map coordinates
 
-class LocationScreen extends StatefulWidget {
-  const LocationScreen({super.key});
+class SelectedLocation extends StatefulWidget {
+  const SelectedLocation({super.key});
 
   @override
-  State<LocationScreen> createState() => _LocationScreenState();
+  State<SelectedLocation> createState() => _SelectedLocationState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
+class _SelectedLocationState extends State<SelectedLocation> {
   lat_lng.LatLng? _liveLocation; // Current live location coordinates
   lat_lng.LatLng? _selectedLocation; // Selected location coordinates
   Stream<Position>? _positionStream;
@@ -150,7 +150,7 @@ class _LocationScreenState extends State<LocationScreen> {
               children: [
                 GestureDetector(
                   onTap:(){
-                    Get.to(AlarmScreen());
+                    Get.to(HomeAlarm());
                   },
                   child: ElevatedButton(
                     onPressed: _selectCurrentLocation,

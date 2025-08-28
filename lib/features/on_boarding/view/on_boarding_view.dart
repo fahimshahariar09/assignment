@@ -1,9 +1,8 @@
-import 'package:assignment/constants/app_colors/app_colors.dart';
+import 'package:assignment/common_widgets/custom_text.dart';
 import 'package:assignment/features/on_boarding/controller/on_boarding_controller.dart';
+import 'package:assignment/features/welcome/view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../map_location/view/map_location.dart' show LocationScreen;
 
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
@@ -14,7 +13,7 @@ class OnBoardingView extends StatelessWidget {
     {
       'title': "Sync with Nature’s \nRhythm",
       'description':
-          "Experience a peaceful transition into the\nevening with an alarm that aligns with the\nsunset. Your perfect reminder, always 15 minutes b\nefore sundown",
+          "Experience a peaceful transition into the\nevening with an alarm that aligns with the\nsunset. Your perfect reminder, always 15\nminutes before sundown",
       'image': 'asset/images/onboarding.png',
     },
     {
@@ -25,7 +24,7 @@ class OnBoardingView extends StatelessWidget {
     },
     {
       'title': 'Relax & Unwind',
-      'description': "hope to take the courage to pursue your\ndreams.",
+      'description': "Hope to take the courage to pursue your\ndreams.",
       'image': 'asset/images/onboarding3.png',
     },
   ];
@@ -33,130 +32,166 @@ class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Container(
-        decoration: BoxDecoration(
-          // gradient: LinearGradient(
-          //   end: Alignment.topRight,
-          //   begin: Alignment.bottomLeft,
-          //   colors: [Color(0xFFE7B10A), Color(0x0ff9d949)],
-          // ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                SizedBox(height: 50),
-                // Details of On Boarding Screen
-                Expanded(
-                  child: PageView.builder(
-                    controller: controller.pageController,
-                    onPageChanged: controller.onPageChanged,
-                    itemCount: onboardingData.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Image
-                          Container(
-                            height: 200, // Reduced height
-                            width: double.infinity, // Reduced width
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.asset(
-                              height: 286,
-                              width: double.infinity,
-                              onboardingData[index]['image']!,
-                              fit: BoxFit
-                                  .cover, // Show full image without cropping
-                            ),
-                          ),
-                          SizedBox(height: 40),
-                          // Title
-                          Text(
-                            onboardingData[index]['title']!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          // Description
-                          Text(
-                            onboardingData[index]['description']!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                // Dots Indicator
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      onboardingData.length,
-                      (index) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4),
-                        width: controller.currentPage.value == index ? 10 : 8,
-                        height: 8,
+      body: Column(
+        children: [
+          // Full PageView including image
+          Expanded(
+            child: PageView.builder(
+              controller: controller.pageController,
+              onPageChanged: controller.onPageChanged,
+              itemCount: onboardingData.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.black54, // Dark overlay for contrast
+                  child: Column(
+                    children: [
+                      // Image Container with fixed height
+                      Container(
+                        height: 430,
                         decoration: BoxDecoration(
-                          color: controller.currentPage.value == index
-                              ? Colors.blue
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(4),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              onboardingData[index]['image']!,
+                            ), // Dynamic image
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  Get.to(WelcomeScreen());
+                                },
+                                child: Text(
+                                  'Skip',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 35),
-                  child: Obx(
-                    () => Column(
-                      children: [
-                        //Button For Next
-                        ElevatedButton(
-                          onPressed: () {
-                            if (controller.currentPage.value ==
-                                onboardingData.length - 1) {
-                              //Get.offAllNamed('/LocationScreen');
-                              Get.to(LocationScreen());
-                            } else {
-                              controller.nextPage();
-                            }
-                          },
-
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.fullblack,
-                            foregroundColor: AppColors.white,
-                            padding: EdgeInsets.all(25),
-                            minimumSize: Size(50, 15), // Full width
-                          ),
-                          child:
-                              controller.currentPage.value ==
-                                  onboardingData.length - 1
-                              ? Icon(Icons.arrow_forward_rounded, size: 25)
-                              : Icon(Icons.arrow_forward_rounded, size: 25),
+                      // Text and Controls
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            // Title
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              child: Row(
+                                children: [
+                                  CustomText(
+                                    title: onboardingData[index]['title']!,
+                                    textAlign: TextAlign.start,
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            // Description
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              child: Row(
+                                children: [
+                                  CustomText(
+                                    title:
+                                        onboardingData[index]['description']!,
+                                    textAlign: TextAlign.start,
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      // Dots Indicator
+                      Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            onboardingData.length,
+                            (index) => Container(
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              width: controller.currentPage.value == index
+                                  ? 10
+                                  : 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                color: controller.currentPage.value == index
+                                    ? Colors.blue
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      // Next Button
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        child: Obx(
+                          () => ElevatedButton(
+                            onPressed: () {
+                              if (controller.currentPage.value ==
+                                  onboardingData.length - 1) {
+                                Get.to(WelcomeScreen());
+                              } else {
+                                controller.nextPage();
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(
+                                0xFF6B4E99,
+                              ), // Purple color
+                              foregroundColor: Colors.white,
+                              minimumSize: Size(
+                                double.infinity,
+                                50,
+                              ), // Full width
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            child:
+                                controller.currentPage.value ==
+                                    onboardingData.length - 1
+                                ? Text(
+                                    'Get Started',
+                                    style: TextStyle(fontSize: 16),
+                                  )
+                                : Text('Next', style: TextStyle(fontSize: 16)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                    ],
                   ),
-                ),
-                SizedBox(height: 40),
-              ],
+                );
+              },
             ),
           ),
-        ),
+        ],
       ),
     );
   }
